@@ -6,6 +6,12 @@ body {
   grid-template-areas: ". c .";
 }
 
+h1 {
+  margin-bottom: 0.5rem;
+  background: #f8da65;
+  transform: skewY(-1.2deg);
+}
+
 .container {
   grid-area: c;
 }
@@ -18,4 +24,16 @@ textarea {
 footer {
   padding-top: 1em;
   font-size: 0.6em;
+}
+
+#validate {
+  background: #a5e86f;
+  align-self: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: .5rem 1.5rem;
+  border-radius: 1.5rem;
+  text-decoration: none;
+  margin-top: 1rem;
+  cursor: pointer;
 }
