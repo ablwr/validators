@@ -7,7 +7,7 @@ body {
 }
 
 h1 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   background: #f8da65;
   transform: skewY(-1.2deg);
 }
@@ -36,4 +36,10 @@ footer {
   text-decoration: none;
   margin-top: 1rem;
   cursor: pointer;
+  transform: perspective(1px) translateZ(0);
+}
+
+#validate:hover {
+  transform: translateY(2px);
+  
 }
