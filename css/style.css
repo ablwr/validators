@@ -1,0 +1,21 @@
+body {
+  font-size: 24px;
+  font-family: sans-serif;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: ". c .";
+}
+
+.container {
+  grid-area: c;
+}
+
+textarea {
+  width: 70vw;
+  height: 30vh;
+}
+
+footer {
+  padding-top: 1em;
+  font-size: 0.6em;
+}
