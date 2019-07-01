@@ -30,7 +30,7 @@ footer {
   font-size: 0.6em;
 }
 
-#validate, #csvData {
+#validate, #csvData, #startOver {
   background: #a5e86f;
   align-self: center;
   font-size: 1.8rem;
@@ -43,7 +43,10 @@ footer {
   transform: perspective(1px) translateZ(0);
 }
 
-#validate:hover, #csvData:hover {
+#startOver {
+  background: #cfdbcd
+}
+
+#validate:hover, #csvData:hover, #startOver {
   transform: translateY(2px);
-  
 }
