@@ -2,7 +2,7 @@ var validate = document.getElementById('validate');
 
 var schemaData;
 
-fetch('pbcore-2.1.xsd')
+fetch('assets/pbcore-2.1.xsd')
   .then(response => response.text())
   .then(data => schemaData = data)
 

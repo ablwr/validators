@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>pbcore-validator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/codemirror.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>pbcore-validator</h1>
+      <tagline>JavaScript PBCore 2.1 Schema Validation</tagline>
+    </header>
+    <h3>XML to validate:</h3>
+    <textarea id="xmlData"></textarea>
+    <h3>Results:</h3>
+    <textarea id="resultConsole" readonly="readonly" rows="5"></textarea>
+    <br/>
+    <button id="validate">Validate</button>
+    <footer>Made with 💙 by <a href="http://ashleyblewer.com">Ashley</a> | <a href="https://github.com/ablwr/validators">See source on Github</a> | <a href="http://pbcore.org/">Learn more about PBCore</a>
+    </footer>
+  </div>
+
+  <script src="js/codemirror.js"></script>
+  <script src="js/xml.js"></script>
+  <script src="js/xmllint.js"></script>
+  <script src="js/pbcore.js"></script>
+</body>
+</html>

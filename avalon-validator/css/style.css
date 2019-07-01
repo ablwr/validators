@@ -1,0 +1,49 @@
+body {
+  font-size: 24px;
+  font-family: sans-serif;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: ". c .";
+}
+
+h1 {
+  margin-bottom: 0.8rem;
+  background: #f8da65;
+  transform: skewY(-1.2deg);
+}
+
+h1:hover {
+  transform: skewY(-1.8deg);
+}
+
+.container {
+  grid-area: c;
+}
+
+textarea {
+  width: 70vw;
+  height: 30vh;
+}
+
+footer {
+  padding-top: 1em;
+  font-size: 0.6em;
+}
+
+#validate, #csvData {
+  background: #a5e86f;
+  align-self: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: .5rem 1.5rem;
+  border-radius: 1.5rem;
+  text-decoration: none;
+  margin-top: 1rem;
+  cursor: pointer;
+  transform: perspective(1px) translateZ(0);
+}
+
+#validate:hover, #csvData:hover {
+  transform: translateY(2px);
+  
+}

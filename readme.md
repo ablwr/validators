@@ -1,7 +1,9 @@
-# pbcore-validator
+# Validators!
 
-[http://bits.ashleyblewer.com/pbcore-validator/](http://bits.ashleyblewer.com/pbcore-validator/)
+[http://bits.ashleyblewer.com/pbcore-validator/](http://bits.ashleyblewer.com/validators/)
 
-Pop that PBCore into here and find out how valid it is.
+Validators in action:
+- PBCore 2.1
+-Avalon Media System Manifest Files
 
-Inspo comes straight from this [xml.js](https://github.com/kripken/xml.js) demo.
+Have others in mind? [Get in touch](https://ashleyblewer.com)
