@@ -1,3 +1,3 @@
-document.getElementByID("startOver").addEventListener('click', (e) => {
+document.getElementById("startOver").addEventListener('click', (e) => {
   location.reload()
 })
