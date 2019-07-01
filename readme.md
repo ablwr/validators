@@ -1,6 +1,6 @@
 # Validators!
 
-[http://bits.ashleyblewer.com/pbcore-validator/](http://bits.ashleyblewer.com/validators/)
+[http://bits.ashleyblewer.com/validator/](http://bits.ashleyblewer.com/validators/)
 
 Validators in action:
 - PBCore 2.1
