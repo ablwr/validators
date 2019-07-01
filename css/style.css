@@ -12,6 +12,10 @@ h1 {
   transform: skewY(-1.2deg);
 }
 
+h1:hover {
+  transform: skewY(-1.8deg);
+}
+
 .container {
   grid-area: c;
 }
@@ -26,7 +30,7 @@ footer {
   font-size: 0.6em;
 }
 
-#validate {
+#validate, #csvData {
   background: #a5e86f;
   align-self: center;
   font-size: 1.8rem;
