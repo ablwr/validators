@@ -43,7 +43,7 @@ footer {
   transform: perspective(1px) translateZ(0);
 }
 
-#validate:hover {
+#validate:hover, #csvData:hover {
   transform: translateY(2px);
   
 }
