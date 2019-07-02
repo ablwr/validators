@@ -68,7 +68,7 @@ function checkFileCols(manifest, fileCols) {
 function checkAdminData(header1) {
   clean = header1.filter(Boolean)
   if (clean.length < 2 || clean.length > 2) {
-    sendText("Error")
+    sendText("Error in Administrative Data fields (Row 1)")
   }
 }
 
@@ -76,13 +76,15 @@ function checkHeaderData(header2) {
 
   header2.forEach(el => {
     if (el[0] == " " || el[el.length - 1] == " ") {
-      sendText("Header fields cannot have leading or trailing blanks")
+      sendText("Header fields (Row 2) cannot have leading or trailing blanks")
     }
   })
 
   dupes = header2.filter((item, index) => header2.indexOf(item) != index)
   if (dupes.some(r => unique_headers.indexOf(r) >= 0)) {
     sendText("A non-repeatable header field is repeated")
+    sendText("Your repeating fields: " + dupes.filter((v, i, a) => a.indexOf(v) === i).join(", "))
+    sendText("Acceptable repeating fields: " + unique_headers.join(", "))
   }
 
 
@@ -92,8 +94,12 @@ function checkHeaderData(header2) {
     }
   }
 
-  if (!header2.some(r => all_headers.indexOf(r) >= 0)) {
+  if (header2.some(r => all_headers.indexOf(r) >= 0)) {
     sendText("Manifest includes invalid metadata field(s)")
+    invalid_fields = header2.filter(function (el) {
+      return !all_headers.includes(el);
+    })
+    sendText("Invalid fields: " + invalid_fields)
   }
 }
 
