@@ -3,46 +3,66 @@ const validate = document.getElementById('validate')
 const load = document.getElementById('csvData')
 let manifest = ""
 
-const all_headers = [
+const dc_headers = [
   "filename", "dc.title", "dc.creator", "dc.subject", "dc.description", "dc.publisher", 
   "dc.contributor","dc.date", "dc.type", "dc.format", "dc.identifier", "dc.source", 
   "dc.language", "dc.relation", "dc.coverage", "dc.rights"
+  "dcterms.abstract", "dcterms.accessRights", "dcterms.accrualMethod",
+  "dcterms.accrualPeriodicity", "dcterms.accrualPolicy", "dcterms.alternative",
+  "dcterms.audience", "dcterms.available", "dcterms.bibliographicCitation",
+  "dcterms.conformsTo", "dcterms.contributor", "dcterms.coverage", "dcterms.created",
+  "dcterms.creator", "dcterms.date", "dcterms.dateAccepted", "dcterms.dateCopyrighted",
+  "dcterms.dateSubmitted", "dcterms.description", "dcterms.educationLevel",
+  "dcterms.extent", "dcterms.format", "dcterms.hasFormat", "dcterms.hasPart",
+  "dcterms.hasVersion", "dcterms.identifier", "dcterms.instructionalMethod",
+  "dcterms.isFormatOf", "dcterms.isPartOf", "dcterms.isReferencedBy",
+  "dcterms.isReplacedBy", "dcterms.isRequiredBy", "dcterms.issued",
+  "dcterms.isVersionOf", "dcterms.language", "dcterms.license", "dcterms.mediator",
+  "dcterms.medium", "dcterms.modified", "dcterms.provenance", "dcterms.publisher",
+  "dcterms.references", "dcterms.relation", "dcterms.replaces", "dcterms.requires",
+  "dcterms.rights", "dcterms.rightsHolder", "dcterms.source", "dcterms.spatial",
+  "dcterms.subject", "dcterms.tableOfContents", "dcterms.temporal", "dcterms.title",
+  "dcterms.type", "dcterms.valid"
 ]
 
 const req_headers = ["filename"]
 
-const unique_headers = [
-  "filename"
-]
-
-let fnCol = []
-
 
 function sendText(msg, warning) {
-  p = document.createElement("p")
-  resultsList.appendChild(p)
-  if (warning) { p.classList.add("warning") }
-  p.innerHTML += msg
+  li = document.createElement("li")
+  resultsList.appendChild(li)
+  if (warning) { li.classList.add("warning") }
+  li.innerHTML += msg
 }
 
-function checkFilename(manifest, fnCol) {
+
+function checkFilename(manifest) {
+
   manifest.data.forEach((row, ri) => {
     if (!ri == 0) {
-      fnCol.forEach(column => {
-        if (!row[column].startsWith("objects/")) {
-          sendText("Filename path must start with 'objects/'")
-          sendText("Check " + row[column])
-        }
-      })
-      fnCol.forEach(column =>{
-      dotCheck = row[column].match(/\./g)
-      rezCaveat = row[column].match(/(.low.|.medium.|.high.)/g)
-      if (dotCheck != null && rezCaveat != null  ) {
+
+      dotCheck = row[0].match(/\./g)
+      if (dotCheck != null) {
         if (dotCheck.length > 1) {
           sendText("Filepath contains more than one period.")
         }
       }
-    })
+
+      let checkBox = document.getElementById("bag") 
+      if (checkBox.checked && dotCheck != null) {
+        // Bagged AND object-level must start with "data/"
+        if (!row[0].startsWith("data/")) {
+          sendText("Because this is a bagged transfer with object-level metadata, filename path (the first column) must start with 'data/'")
+          sendText("Check " + row[0], true)
+        }
+      } else {
+        // Standard either way, or bagged dir level
+        if (!row[0].startsWith("objects/")) {
+          sendText("Filename path (the first column) must start with 'objects/'")
+          sendText("Check " + row[0], true)
+        }
+      }
+
     }
   })
 }
@@ -50,19 +70,19 @@ function checkFilename(manifest, fnCol) {
 
 function checkHeaderData(header) {
 
+  if (!header.some(r => req_headers.indexOf(r) >= 0)) {
+    sendText("Required header column is missing: filename.", true)
+  }
+
   header.forEach(el => {
-    if (el[0] == " " || el[el.length - 1] == " ") {
-      sendText("Column headers fields cannot have leading or trailing blank spaces", true)
+    if (el.indexOf(" ") >= 0) {
+      sendText("Column headers fields should not have blank spaces. Check this header: " + el, true)
     }
   })
 
-  if (!header.some(r => req_headers.indexOf(r) >= 0)) {
-    sendText("One of the required column headers is missing: filename.", true)
-  }
-
-  if (header.filter(x => !all_headers.includes(x)).length > 0) {
-      sendText("Your metadata.csv contains custom metadata. Is that ok?")
-      sendText("Custom columns are: "+ header.filter(x => !all_headers.includes(x)), true )
+  if (header.filter(x => !dc_headers.includes(x)).length > 0) {
+      sendText("Your metadata.csv contains custom metadata. Is that ok? These custom columns will get written to the METS but not be included in uploaded DIP metadata.")
+      sendText("Custom columns are: "+ header.filter(x => !dc_headers.includes(x)) )
   }
 }
 
@@ -75,14 +95,18 @@ function checkChardet() {
     for (var i = 0; i < array.length; ++i) {
       string += String.fromCharCode(array[i]);
     }
-
     let encoding = jschardet.detect(string).encoding
     let confidence = jschardet.detect(string).confidence.toString()
 
-    if (encoding != "UTF-8") {
-      sendText("This CSV's encoding looks to be: " + encoding + " (est. " + confidence.slice(2,4) +"%) ...... and that is bad. It should be UTF-8.", true)
+    if (encoding != "UTF-8" && encoding != "ascii") {
+      sendText("This CSV's encoding looks to be: " + encoding + " (est. " + confidence.slice(2,4) +"% accurate) (and that is bad). It should be UTF-8.", true)
     } else {
-      sendText("CSV is UTF-8 (and that's gr8)")
+      sendText("Encoding looks OK. CSV is UTF-8 or ASCII.")
+    }
+
+    // Check for unusual UTF-8 parsing
+    if (string != string.normalize()) {
+      sendText("There may be an issue with the data that make it non-UTF-8-compliant.", true)
     }
   };
   fileReader.readAsArrayBuffer(file);
@@ -91,19 +115,14 @@ function checkChardet() {
 
 function validateCSV(manifest) {
   document.getElementById("resultsBlock").innerHTML = ''
-  checkChardet()
+
 
   let header = manifest.data[0]
   checkHeaderData(header)
 
 
-  header.forEach((el, i) => {
-    if (el == "filename") {
-        fnCol.push(i)
-    }
-  })
+  checkFilename(manifest)
 
- if (fnCol) { checkFilename(manifest, fnCol) }
   sendText("Validation check complete")
 }
 
@@ -126,6 +145,7 @@ load.addEventListener("change", (e) => {
 })
 
 validate.addEventListener('click', (e) => {
+  checkChardet()
   let result = validateCSV(manifest);
 })
 
