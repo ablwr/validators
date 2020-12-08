@@ -44,9 +44,13 @@ footer {
 }
 
 #startOver {
-  background: #cfdbcd
+  background: #cfdbcd;
 }
 
 #validate:hover, #csvData:hover, #startOver {
   transform: translateY(2px);
+}
+
+.warning {
+  background: pink !important;
 }

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Archivematica metadata.csv validator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Archivematica metadata.csv validator (individual objects)</h1>
+      <tagline></tagline>
+    </header>
+    <h3>CSV to validate</h3>
+    <input id="csvData" type="file"></input>
+    <h3>Results</h3>
+    <div id="results">
+      <ul id="resultsBlock">
+
+      </ul>
+    </div>
+    <button id="validate">Validate</button>
+    <button id="startOver">Start Over</button>
+    <footer>Made with 💙 by <a href="http://ashleyblewer.com">Ashley</a> | <a
+    href="https://bits.ashleyblewer.com/validators">Go Home</a> | <a
+    href="http://github.com/ablwr/validators">See source on Github</a> | <a
+    href="https://archivematica.org/">Learn more about Archivematica</a>
+    </footer>
+  </div>
+  <script type="text/javascript" src="js/jschardet.min.js"></script>
+  <script src="js/papaparse.min.js"></script>
+  <script src="js/archivematica.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>
