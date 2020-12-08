@@ -52,17 +52,17 @@ function checkHeaderData(header) {
 
   header.forEach(el => {
     if (el[0] == " " || el[el.length - 1] == " ") {
-      sendText("Header fields cannot have leading or trailing blank spaces", true)
+      sendText("Column headers fields cannot have leading or trailing blank spaces", true)
     }
   })
 
   if (!header.some(r => req_headers.indexOf(r) >= 0)) {
-    sendText("One of the required headers is missing: filename.", true)
+    sendText("One of the required column headers is missing: filename.", true)
   }
 
-  if (header.some(r => all_headers.indexOf(r) >= 0)) {
+  if (header.filter(x => !all_headers.includes(x)).length > 0) {
       sendText("Your metadata.csv contains custom metadata. Is that ok?")
-      sendText("Custom fields are: " + header.filter(x => !all_headers.includes(x)), true )
+      sendText("Custom columns are: "+ header.filter(x => !all_headers.includes(x)), true )
   }
 }
 
