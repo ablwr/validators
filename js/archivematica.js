@@ -6,7 +6,7 @@ let manifest = ""
 const dc_headers = [
   "filename", "dc.title", "dc.creator", "dc.subject", "dc.description", "dc.publisher", 
   "dc.contributor","dc.date", "dc.type", "dc.format", "dc.identifier", "dc.source", 
-  "dc.language", "dc.relation", "dc.coverage", "dc.rights"
+  "dc.language", "dc.relation", "dc.coverage", "dc.rights",
   "dcterms.abstract", "dcterms.accessRights", "dcterms.accrualMethod",
   "dcterms.accrualPeriodicity", "dcterms.accrualPolicy", "dcterms.alternative",
   "dcterms.audience", "dcterms.available", "dcterms.bibliographicCitation",
