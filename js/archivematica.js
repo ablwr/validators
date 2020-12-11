@@ -1,6 +1,4 @@
-const resultsList = document.getElementById('resultsBlock')
-const validate = document.getElementById('validate')
-const load = document.getElementById('csvData')
+
 let manifest = ""
 
 const dc_headers = [
@@ -26,15 +24,6 @@ const dc_headers = [
 ]
 
 const req_headers = ["filename"]
-
-
-function sendText(msg, warning) {
-  li = document.createElement("li")
-  resultsList.appendChild(li)
-  if (warning) { li.classList.add("warning") }
-  li.innerHTML += msg
-}
-
 
 function checkFilename(manifest) {
 
@@ -86,46 +75,17 @@ function checkHeaderData(header) {
   }
 }
 
-function checkChardet() {
-  var file = document.getElementById('csvData').files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function() {
-    var array = new Uint8Array(fileReader.result);
-    var string = "";
-    for (var i = 0; i < array.length; ++i) {
-      string += String.fromCharCode(array[i]);
-    }
-    let encoding = jschardet.detect(string).encoding
-    let confidence = jschardet.detect(string).confidence.toString()
-
-    if (encoding != "UTF-8" && encoding != "ascii") {
-      sendText("This CSV's encoding looks to be: " + encoding + " (est. " + confidence.slice(2,4) +"% accurate) (and that is bad). It should be UTF-8.", true)
-    } else {
-      sendText("Encoding looks OK. CSV is UTF-8 or ASCII.")
-    }
-
-    // Check for unusual UTF-8 parsing
-    if (string != string.normalize()) {
-      sendText("There may be an issue with the data that make it non-UTF-8-compliant.", true)
-    }
-  };
-  fileReader.readAsArrayBuffer(file);
-}
-
 
 function validateCSV(manifest) {
   document.getElementById("resultsBlock").innerHTML = ''
 
-
   let header = manifest.data[0]
   checkHeaderData(header)
-
 
   checkFilename(manifest)
 
   sendText("Validation check complete")
 }
-
 
 
 // Listening
