@@ -39,6 +39,7 @@ load.addEventListener("change", (e) => {
     },
     skipEmptyLines: true,
     delimiter: ",",
+    newline: "\n",
   })
 })
 
