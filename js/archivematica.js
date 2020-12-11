@@ -1,4 +1,4 @@
-
+const load = document.getElementById('csvData')
 let manifest = ""
 
 const dc_headers = [
